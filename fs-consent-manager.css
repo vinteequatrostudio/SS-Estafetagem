@@ -567,3 +567,17 @@
     transform: translate(0px, 0px);
   }
 }
+/* --- Ajustes do Tawk.to --- */
+
+/* Tenta forçar a tradução do título através de CSS */
+.tawk-message-title {
+    display: none !important; /* Esconde o "Recent" original */
+}
+
+.tawk-chat-view-content:before {
+    content: "Mensagens Recentes"; /* Texto em PT */
+    display: block;
+    padding: 10px;
+    font-weight: bold;
+    color: #333;
+}
