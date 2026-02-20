@@ -2,65 +2,77 @@
 <script src="https://cdn.jsdelivr.net/gh/vinteequatrostudio/SS-Estafetagem@main/fs-consent-manager.js"></script>
 
 <script>
-// Aguarda o carregamento completo para garantir que o objeto silktideCookieBannerManager existe
 window.addEventListener('load', function() {
     if (typeof silktideCookieBannerManager !== 'undefined') {
+        
+        // 1. Detetar o idioma do site (Wix define isto no atributo lang da página)
+        var siteLang = document.documentElement.lang || 'pt'; 
+        siteLang = siteLang.substring(0, 2).toLowerCase(); 
+
+        // 2. Dicionário de Traduções
+        var translations = {
+            pt: {
+                bannerDesc: "Utilizamos cookies para melhorar a sua experiência e analisar o nosso tráfego. <a href='https://www.ssestafetagem.com/política-de-cookies' target='_blank'>Política de Cookies.</a>",
+                acceptAll: "Aceitar todos",
+                reject: "Recusar",
+                prefs: "Preferências",
+                title: "Personalizar preferências de cookies",
+                necessaryName: "Necessários",
+                necessaryDesc: "Essenciais para o funcionamento do site.",
+                analyticsName: "Estatísticas",
+                analyticsDesc: "Ajudam-nos a analisar o tráfego e uso do site."
+            },
+            en: {
+                bannerDesc: "We use cookies to enhance your experience and analyze our traffic. <a href='https://www.ssestafetagem.com/cookie-policy' target='_blank'>Cookie Policy.</a>",
+                acceptAll: "Accept all",
+                reject: "Reject",
+                prefs: "Preferences",
+                title: "Customize cookie preferences",
+                necessaryName: "Necessary",
+                necessaryDesc: "Essential for the website to function properly.",
+                analyticsName: "Analytics",
+                analyticsDesc: "Help us analyze site traffic and usage."
+            }
+        };
+
+        // Seleciona a tradução atual
+        var t = translations[siteLang] || translations['pt'];
+
+        // 3. Configuração do Banner com Idioma Dinâmico
         silktideCookieBannerManager.updateCookieBannerConfig({
-            background: {
-                showBackground: true
-            },
-            cookieIcon: {
-                position: "bottomLeft"
-            },
+            background: { showBackground: true },
+            cookieIcon: { position: "bottomLeft" },
             cookieTypes: [
                 {
                     id: "necessary",
-                    name: "Necessários",
-                    description: "<p>Estes cookies são essenciais para o funcionamento do site e não podem ser desativados.</p>",
+                    name: t.necessaryName,
+                    description: "<p>" + t.necessaryDesc + "</p>",
                     required: true
                 },
                 {
                     id: "analytics",
-                    name: "Análise",
-                    description: "<p>Ajudam-nos a entender como os visitantes interagem com o site.</p>",
+                    name: t.analyticsName,
+                    description: "<p>" + t.analyticsDesc + "</p>",
                     defaultValue: true,
-                    onAccept: function() {
-                        if (typeof gtag === 'function') {
-                            gtag('consent', 'update', { 'analytics_storage': 'granted' });
-                        }
-                    }
-                },
-                {
-                    id: "advertising",
-                    name: "Publicidade",
-                    description: "<p>Utilizados para personalizar anúncios relevantes para si.</p>",
-                    onAccept: function() {
-                        if (typeof gtag === 'function') {
-                            gtag('consent', 'update', {
-                                'ad_storage': 'granted',
-                                'ad_user_data': 'granted',
-                                'ad_personalization': 'granted'
-                            });
-                        }
+                    onAccept: function() { 
+                        if (typeof gtag === 'function') gtag('consent', 'update', { 'analytics_storage': 'granted' }); 
                     }
                 }
             ],
             text: {
                 banner: {
-                    description: "<p>Utilizamos cookies para melhorar a sua experiência e analisar o nosso tráfego. <a href=\"https://www.ssestafetagem.com/política-de-cookies\" target=\"_blank\">Política de Cookies.</a></p>",
-                    acceptAllButtonText: "Aceitar todos",
-                    rejectNonEssentialButtonText: "Recusar",
-                    preferencesButtonText: "Preferências"
+                    description: "<p>" + t.bannerDesc + "</p>",
+                    acceptAllButtonText: t.acceptAll,
+                    rejectNonEssentialButtonText: t.reject,
+                    preferencesButtonText: t.prefs
                 },
                 preferences: {
-                    title: "Personalizar preferências de cookies",
-                    description: "<p>Respeitamos a sua privacidade. Pode escolher quais cookies deseja permitir.</p>",
-                    creditLinkText: "" // Removido para um look mais limpo
+                    title: t.title,
+                    description: siteLang === 'pt' ? "<p>Escolha quais cookies deseja permitir.</p>" : "<p>Choose which cookies you want to allow.</p>",
+                    creditLinkText: ""
                 }
             },
-            position: {
-                banner: "bottomCenter"
-            }
+            position: { banner: "bottomCenter" }
         });
     }
 });
