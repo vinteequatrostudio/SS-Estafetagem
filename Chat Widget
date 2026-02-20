@@ -1,26 +1,19 @@
 <script type="text/javascript">
-function getChatId() {
-    // This looks at the <html lang="xx"> attribute of your Wix site
-    var siteLang = document.documentElement.lang || 'en'; 
+(function() {
+    // Deteta o idioma através da URL ou do atributo lang
+    var url = window.location.href;
+    var widgetId = 'ZBNyv43FWa'; // Default PT
 
-    // Match the site's language code to your Tawk.to Widget IDs
-    if (siteLang.includes('en')) {
-        return '6985b51b0204fe1c37634dca/1jh4qusv1'; // English Widget
-    } else if (siteLang.includes('pt')) {
-        return '6985b51b0204fe1c37634dca/1jh4dcjep'; // Portuguese Widget
-    } else {
-        return '6985b51b0204fe1c37634dca/1jh4dcjep'; // Fallback Widget
+    // Se a URL contiver /en ou o parâmetro de língua for inglês
+    if (url.indexOf('/en') > -1 || url.indexOf('lang=en') > -1) {
+        widgetId = 'rGaz7crB7d'; // ID do Widget Inglês
     }
-}
 
-(function () {
-    var chatId = getChatId();
-    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/' + chatId;
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//code.jivosite.com/widget/' + widgetId;
+    var ss = document.getElementsByTagName('script')[0];
+    ss.parentNode.insertBefore(s, ss);
 })();
 </script>
