@@ -1,4 +1,4 @@
-// Silktide Consent Manager - https://silktide.com/consent-manager/  
+// Silktide Consent Manager - https://silktide.com/consent-manager/ test 
 
 class SilktideCookieBanner {
   constructor(config) {
