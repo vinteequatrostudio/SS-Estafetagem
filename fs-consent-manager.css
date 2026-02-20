@@ -574,10 +574,3 @@
     display: none !important; /* Esconde o "Recent" original */
 }
 
-.tawk-chat-view-content:before {
-    content: "Mensagens Recentes"; /* Texto em PT */
-    display: block;
-    padding: 10px;
-    font-weight: bold;
-    color: #333;
-}
