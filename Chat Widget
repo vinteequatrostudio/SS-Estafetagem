@@ -1,0 +1,26 @@
+<script type="text/javascript">
+function getChatId() {
+    // This looks at the <html lang="xx"> attribute of your Wix site
+    var siteLang = document.documentElement.lang || 'en'; 
+
+    // Match the site's language code to your Tawk.to Widget IDs
+    if (siteLang.includes('en')) {
+        return '6985b51b0204fe1c37634dca/1jh4qusv1'; // English Widget
+    } else if (siteLang.includes('pt')) {
+        return '6985b51b0204fe1c37634dca/1jh4dcjep'; // Portuguese Widget
+    } else {
+        return '6985b51b0204fe1c37634dca/1jh4dcjep'; // Fallback Widget
+    }
+}
+
+(function () {
+    var chatId = getChatId();
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+    s1.async = true;
+    s1.src = 'https://embed.tawk.to/' + chatId;
+    s1.charset = 'UTF-8';
+    s1.setAttribute('crossorigin', '*');
+    s0.parentNode.insertBefore(s1, s0);
+})();
+</script>
