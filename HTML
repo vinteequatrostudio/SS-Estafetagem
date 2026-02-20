@@ -2,84 +2,66 @@
 <script src="https://cdn.jsdelivr.net/gh/vinteequatrostudio/SS-Estafetagem@main/silktide-consent-manager.js"></script>
 
 <script>
-silktideCookieBannerManager.updateCookieBannerConfig({
-  background: {
-    showBackground: true
-  },
-  cookieIcon: {
-    position: "bottomLeft"
-  },
-  cookieTypes: [
-    {
-      id: "necessary",
-      name: "Necessary",
-      description: "<p>These cookies are necessary for the website to function properly and cannot be switched off. They help with things like logging in and setting your privacy preferences.</p>",
-      required: true,
-      onAccept: function() {
-        console.log('Add logic for the required Necessary here');
-      }
-    },
-    {
-      id: "analytics",
-      name: "Analytics",
-      description: "<p>These cookies help us improve the site by tracking which pages are most popular and how visitors move around the site.</p>",
-      defaultValue: true,
-      onAccept: function() {
-        gtag('consent', 'update', {
-          analytics_storage: 'granted',
+// Aguarda o carregamento completo para garantir que o objeto silktideCookieBannerManager existe
+window.addEventListener('load', function() {
+    if (typeof silktideCookieBannerManager !== 'undefined') {
+        silktideCookieBannerManager.updateCookieBannerConfig({
+            background: {
+                showBackground: true
+            },
+            cookieIcon: {
+                position: "bottomLeft"
+            },
+            cookieTypes: [
+                {
+                    id: "necessary",
+                    name: "Necessários",
+                    description: "<p>Estes cookies são essenciais para o funcionamento do site e não podem ser desativados.</p>",
+                    required: true
+                },
+                {
+                    id: "analytics",
+                    name: "Análise",
+                    description: "<p>Ajudam-nos a entender como os visitantes interagem com o site.</p>",
+                    defaultValue: true,
+                    onAccept: function() {
+                        if (typeof gtag === 'function') {
+                            gtag('consent', 'update', { 'analytics_storage': 'granted' });
+                        }
+                    }
+                },
+                {
+                    id: "advertising",
+                    name: "Publicidade",
+                    description: "<p>Utilizados para personalizar anúncios relevantes para si.</p>",
+                    onAccept: function() {
+                        if (typeof gtag === 'function') {
+                            gtag('consent', 'update', {
+                                'ad_storage': 'granted',
+                                'ad_user_data': 'granted',
+                                'ad_personalization': 'granted'
+                            });
+                        }
+                    }
+                }
+            ],
+            text: {
+                banner: {
+                    description: "<p>Utilizamos cookies para melhorar a sua experiência e analisar o nosso tráfego. <a href=\"https://www.ssestafetagem.com/política-de-cookies\" target=\"_blank\">Política de Cookies.</a></p>",
+                    acceptAllButtonText: "Aceitar todos",
+                    rejectNonEssentialButtonText: "Recusar",
+                    preferencesButtonText: "Preferências"
+                },
+                preferences: {
+                    title: "Personalizar preferências de cookies",
+                    description: "<p>Respeitamos a sua privacidade. Pode escolher quais cookies deseja permitir.</p>",
+                    creditLinkText: "" // Removido para um look mais limpo
+                }
+            },
+            position: {
+                banner: "bottomCenter"
+            }
         });
-        dataLayer.push({
-          'event': 'consent_accepted_analytics',
-        });
-      },
-      onReject: function() {
-        gtag('consent', 'update', {
-          analytics_storage: 'denied',
-        });
-      }
-    },
-    {
-      id: "advertising",
-      name: "Advertising",
-      description: "<p>These cookies provide extra features and personalization to improve your experience. They may be set by us or by partners whose services we use.</p>",
-      onAccept: function() {
-        gtag('consent', 'update', {
-          ad_storage: 'granted',
-          ad_user_data: 'granted',
-          ad_personalization: 'granted',
-        });
-        dataLayer.push({
-          'event': 'consent_accepted_advertising',
-        });
-      },
-      onReject: function() {
-        gtag('consent', 'update', {
-          ad_storage: 'denied',
-          ad_user_data: 'denied',
-          ad_personalization: 'denied',
-        });
-      }
     }
-  ],
-  text: {
-    banner: {
-      description: "<p>We use cookies on our site to enhance your user experience, provide personalized content, and analyze our traffic. <a href=\"https://your-website.com/cookie-policy\" target=\"_blank\">Cookie Policy.</a></p>",
-      acceptAllButtonText: "Accept all",
-      acceptAllButtonAccessibleLabel: "Accept all cookies",
-      rejectNonEssentialButtonText: "Reject non-essential",
-      rejectNonEssentialButtonAccessibleLabel: "Reject non-essential",
-      preferencesButtonText: "Preferences",
-      preferencesButtonAccessibleLabel: "Toggle preferences"
-    },
-    preferences: {
-      title: "Customize your cookie preferences",
-      description: "<p>We respect your right to privacy. You can choose not to allow some types of cookies. Your cookie preferences will apply across our website.</p>",
-      creditLinkText: "Powered by Silktide",
-      creditLinkAccessibleLabel: "Powered by Silktide"
-    }
-  },
-  position: {
-    banner: "bottomCenter"
-  }
 });
 </script>
