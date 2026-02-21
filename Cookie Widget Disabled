@@ -1,0 +1,115 @@
+<link rel="stylesheet" id="silktide-consent-manager-css" href="https://cdn.jsdelivr.net/gh/vinteequatrostudio/SS-Estafetagem@main/fs-consent-manager.css">
+<script src="https://cdn.jsdelivr.net/gh/vinteequatrostudio/SS-Estafetagem@main/fs-consent-manager.js"></script>
+
+<script>
+window.addEventListener('load', function() {
+    if (typeof silktideCookieBannerManager !== 'undefined') {
+        
+        // 1. Deteção de Idioma
+        var siteLang = document.documentElement.lang || 'pt'; 
+        siteLang = siteLang.substring(0, 2).toLowerCase(); 
+
+        // 2. Dicionário de Traduções
+        var translations = {
+            pt: {
+                bannerDesc: "Utilizamos cookies para melhorar a sua experiência e analisar o nosso tráfego. <a href='https://www.ssestafetagem.com/política-de-cookies' target='_blank'>Política de Cookies.</a>",
+                acceptAll: "Aceitar todos",
+                reject: "Recusar",
+                prefs: "Preferências",
+                title: "Personalizar preferências de cookies:",
+                necessaryName: "Necessários",
+                necessaryDesc: "Essenciais para o funcionamento do site.",
+                analyticsName: "Estatísticas",
+                analyticsDesc: "Ajudam-nos a analisar o tráfego e uso do site.",
+                marketingName: "Marketing",
+                marketingDesc: "Utilizados para tornar a publicidade mais relevante para si."
+            },
+            en: {
+                bannerDesc: "We use cookies to enhance your experience and analyze our traffic. <a href='https://www.ssestafetagem.com/cookie-policy' target='_blank'>Cookie Policy.</a>",
+                acceptAll: "Accept all",
+                reject: "Reject",
+                prefs: "Preferences",
+                title: "Customize cookie preferences:",
+                necessaryName: "Necessary",
+                necessaryDesc: "Essential for the website to function properly.",
+                analyticsName: "Analytics",
+                analyticsDesc: "Help us analyze site traffic and usage.",
+                marketingName: "Marketing",
+                marketingDesc: "Used to make advertising more relevant to you."
+            }
+        };
+
+        var t = translations[siteLang] || translations['pt'];
+
+        // 3. Inicialização da Configuração
+        silktideCookieBannerManager.updateCookieBannerConfig({
+            background: { showBackground: true },
+            cookieIcon: { position: "bottomLeft" }, // Mantemos para a classe não dar erro
+            cookieTypes: [
+                {
+                    id: "necessary",
+                    name: t.necessaryName,
+                    description: "<p>" + t.necessaryDesc + "</p>",
+                    required: true
+                },
+                {
+                    id: "analytics",
+                    name: t.analyticsName,
+                    description: "<p>" + t.analyticsDesc + "</p>",
+                    defaultValue: true,
+                    onAccept: function() { 
+                        if (typeof gtag === 'function') gtag('consent', 'update', { 'analytics_storage': 'granted' }); 
+                    }
+                },
+                {
+                    id: "advertising",
+                    name: t.marketingName,
+                    description: "<p>" + t.marketingDesc + "</p>",
+                    onAccept: function() {
+                        if (typeof gtag === 'function') {
+                            gtag('consent', 'update', {
+                                'ad_storage': 'granted',
+                                'ad_user_data': 'granted',
+                                'ad_personalization': 'granted'
+                            });
+                        }
+                    }
+                }
+            ],
+            text: {
+                banner: {
+                    description: "<p>" + t.bannerDesc + "</p>",
+                    acceptAllButtonText: t.acceptAll,
+                    rejectNonEssentialButtonText: t.reject,
+                    preferencesButtonText: t.prefs
+                },
+                preferences: {
+                    title: t.title,
+                    description: siteLang === 'pt' ? "<p>Escolha quais cookies deseja permitir.</p>" : "<p>Choose which cookies you want to allow.</p>",
+                    creditLinkText: ""
+                }
+            },
+            position: { banner: "bottomCenter" }
+        });
+
+        // 4. BLOQUEIO DO ÍCONE (Hack para Desktop e Mobile)
+        // Este pequeno bloco impede que o ícone apareça após o banner ser fechado
+        setTimeout(function() {
+            var icon = document.getElementById('silktide-cookie-icon');
+            if (icon) {
+                icon.style.setProperty('display', 'none', 'important');
+                icon.style.setProperty('visibility', 'hidden', 'important');
+            }
+            // Anulamos a função interna de mostrar o ícone para ele não voltar a "acordar"
+            if (window.silktideCookieBannerManager) {
+                var originalShowIcon = silktideCookieBannerManager.showCookieIcon;
+                silktideCookieBannerManager.showCookieIcon = function() { 
+                    var iconElement = document.getElementById('silktide-cookie-icon');
+                    if(iconElement) iconElement.style.display = 'none';
+                    return false; 
+                };
+            }
+        }, 800);
+    }
+});
+</script>
