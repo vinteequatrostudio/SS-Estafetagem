@@ -469,7 +469,7 @@
 
 /* Cookie Icon */
 #silktide-cookie-icon {
-  display: none;
+  display: none !important;
   position: fixed;
   bottom: 15px;
   left: 15px;
