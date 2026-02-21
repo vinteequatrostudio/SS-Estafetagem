@@ -487,25 +487,20 @@
   animation: silktide-fadeIn 0.3s ease-in-out forwards;
 }
 
-#silktide-cookie-icon svg {
-  fill: var(--cookieIconBackgroundColor);
-  width: 35px; /* Reduzido para caber no círculo menor */
-  height: 35px;
+#silktide-cookie-icon {
+  position: fixed !important;
+  bottom: 10px !important;
+  left: 10px !important;
+  width: 1px !important;    /* Quase inexistente */
+  height: 1px !important;   /* Quase inexistente */
+  opacity: 0 !important;    /* Totalmente transparente */
+  pointer-events: none !important; /* O clique passa através dele */
+  overflow: hidden !important;
 }
 
-/* Ajuste específico para MOBILE (Media Query) */
-@media (max-width: 600px) {
-  #silktide-cookie-icon {
-    width: 40px; /* Ainda menor no telemóvel */
-    height: 40px;
-    bottom: 15px;
-    left: 15px;
-  }
-  
-  #silktide-cookie-icon svg {
-    width: 30px;
-    height: 30px;
-  }
+#silktide-cookie-icon svg {
+  display: none !important; /* Esconde o desenho do cookie */
+}
 
 #silktide-cookie-icon.bottomRight {
   left: auto;
