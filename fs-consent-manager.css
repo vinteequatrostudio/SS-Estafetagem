@@ -1,6 +1,12 @@
 /* Silktide Consent Manager - https://silktide.com/consent-manager/  
+
+  Styles are at risked of being overridden by styles coming from the site the consent manager is used on.
+  To help prevent this, global wrapper elements are prefixed with "#silktide-"
 */
 
+/* --------------------------------
+  Global Styles - These elements exist in the main DOM and styling is limited to positioning and animation
+-------------------------------- */
 /* Wrapper (Global) */
 #silktide-wrapper {
               --focus: 0 0 0 2px #ffffff, 0 0 0 4px #000000, 0 0 0 6px #ffffff;
@@ -394,7 +400,8 @@
   transition: left 150ms ease-out;
 }
 
-#silktide-modal .switch__off,<br>#silktide-modal .switch__on {
+#silktide-modal .switch__off,
+#silktide-modal .switch__on {
   text-transform: uppercase;
   font-size: 15px;
   font-weight: 500;
@@ -460,18 +467,16 @@
   padding: 14px 0px;
 }
 
-/* --------------------------------
-  Cookie Icon (ALTERADO)
--------------------------------- */
+/* Cookie Icon */
 #silktide-cookie-icon {
   display: none;
   position: fixed;
-  bottom: 15px; /* Ajustado de 10px */
-  left: 15px;   /* Ajustado de 10px */
+  bottom: 10px;
+  left: 10px;
   justify-content: center;
   align-items: center;
-  width: 40px;  /* Reduzido de 60px */
-  height: 40px; /* Reduzido de 60px */
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   padding: 0px;
   border: none;
@@ -484,31 +489,15 @@
 
 #silktide-cookie-icon.bottomRight {
   left: auto;
-  right: 15px;
+  right: 10px;
 }
 
 #silktide-cookie-icon svg {
   fill: var(--cookieIconBackgroundColor);
-  width: 20px; /* Reduzido proporcionalmente */
-  height: 20px;
-}
-
-/* Media Query exclusiva para o ícone no Mobile */
-@media (max-width: 600px) {
-  #silktide-cookie-icon {
-    width: 30px !important;
-    height: 30px !important;
-    bottom: 10px !important;
-    left: 10px !important;
-  }
-  #silktide-cookie-icon svg {
-    width: 16px !important;
-    height: 16px !important;
-  }
 }
 
 /* --------------------------------
-  Backdrop & Animations (Originais)
+  Backdrop
 -------------------------------- */
 #silktide-backdrop {
   display: none;
@@ -522,27 +511,64 @@
   pointer-events: all;
 }
 
+/* --------------------------------
+  Animations
+-------------------------------- */
 @keyframes silktide-fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes silktide-slideInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes silktide-slideInDown-center {
-  from { opacity: 0; transform: translate(-50%, calc(-50% - 20px)); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 20px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @keyframes silktide-slideInDown-bottomCenter {
-  from { opacity: 0; transform: translate(-50%, -20px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 @keyframes silktide-slideInUp-center {
-  from { opacity: 0; transform: translate(0px, 20px); }
-  to { opacity: 1; transform: translate(0px, 0px); }
+  from {
+    opacity: 0;
+    transform: translate(0px, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+/* --- Ajustes do Tawk.to --- */
+
+/* Tenta forçar a tradução do título através de CSS */
+.tawk-message-title {
+    display: none !important; /* Esconde o "Recent" original */
 }
