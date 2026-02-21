@@ -475,8 +475,8 @@
   left: 10px;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   padding: 0px;
   border: none;
@@ -486,6 +486,25 @@
   pointer-events: auto;
   animation: silktide-fadeIn 0.3s ease-in-out forwards;
 }
+
+#silktide-cookie-icon svg {
+  fill: var(--cookieIconBackgroundColor);
+  width: 35px; /* Reduzido para caber no círculo menor */
+  height: 35px;
+}
+
+/* Ajuste específico para MOBILE (Media Query) */
+@media (max-width: 600px) {
+  #silktide-cookie-icon {
+    width: 40px; /* Ainda menor no telemóvel */
+    height: 40px;
+    bottom: 10px;
+    left: 10px;
+  }
+  #silktide-cookie-icon svg {
+    width: 30px;
+    height: 30px;
+  }
 
 #silktide-cookie-icon.bottomRight {
   left: auto;
