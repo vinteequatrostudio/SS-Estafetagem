@@ -471,8 +471,8 @@
 #silktide-cookie-icon {
   display: none;
   position: fixed;
-  bottom: 10px;
-  left: 10px;
+  bottom: 15px;
+  left: 15px;
   justify-content: center;
   align-items: center;
   width: 40px;
@@ -498,9 +498,10 @@
   #silktide-cookie-icon {
     width: 40px; /* Ainda menor no telemóvel */
     height: 40px;
-    bottom: 10px;
-    left: 10px;
+    bottom: 15px;
+    left: 15px;
   }
+  
   #silktide-cookie-icon svg {
     width: 30px;
     height: 30px;
