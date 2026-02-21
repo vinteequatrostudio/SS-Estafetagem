@@ -489,17 +489,27 @@
 
 #silktide-cookie-icon {
   position: fixed !important;
-  bottom: 10px !important;
-  left: 10px !important;
-  width: 1px !important;    /* Quase inexistente */
-  height: 1px !important;   /* Quase inexistente */
-  opacity: 0 !important;    /* Totalmente transparente */
-  pointer-events: none !important; /* O clique passa através dele */
-  overflow: hidden !important;
+  /* Empurra o ícone para fora do ecrã no Desktop */
+  bottom: -100px !important; 
+  left: -100px !important;
+  
+  /* Mantém propriedades mínimas para o JS não dar erro */
+  display: flex !important; 
+  width: 40px !important;
+  height: 40px !important;
+  opacity: 0.01 !important; /* Quase invisível, mas existente para o browser */
+  pointer-events: none !important;
+  z-index: -1 !important;   /* Fica por trás de tudo */
 }
 
-#silktide-cookie-icon svg {
-  display: none !important; /* Esconde o desenho do cookie */
+/* Ajuste específico para o Mobile (onde disseste que está a funcionar) */
+@media (max-width: 600px) {
+  #silktide-cookie-icon {
+    /* Se quiseres que ele apareça no mobile, mudas aqui. 
+       Se queres que também desapareça no mobile, mantém as regras acima. */
+    bottom: -100px !important;
+    left: -100px !important;
+  }
 }
 
 #silktide-cookie-icon.bottomRight {
